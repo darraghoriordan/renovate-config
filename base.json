@@ -1,0 +1,120 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":autodetectPinVersions",
+    ":automergePatch",
+    ":dependencyDashboard",
+    ":ignoreModulesAndTests",
+    ":label(renovate)",
+    ":prConcurrentLimit10",
+    ":prNotPending",
+    ":rebaseStalePrs",
+    ":semanticPrefixFixDepsChoreOthers",
+    ":separatePatchReleases",
+    ":timezone(Australia/Melbourne)",
+    "group:monorepos",
+    "group:recommended",
+    "helpers:disableTypesNodeMajor",
+    "helpers:pinGitHubActionDigests",
+    "npm:unpublishSafe",
+    "packages:eslint",
+    "preview:dockerCompose",
+    "preview:dockerVersions",
+    "workarounds:all"
+  ],
+
+  "baseBranches": ["master"],
+  "rebaseWhen": "conflicted",
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "postUpdateOptions": ["npmDedupe"],
+  "transitiveRemediation": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "vulnerabilityAlerts": {
+    "commitMessagePrefix": "chore(renovate): Security update",
+    "labels": ["security"]
+  },
+  "automergeStrategy": "merge-commit",
+  "ignorePaths": ["**/node_modules/**"],
+  "prHourlyLimit": 4,
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "matchPackagePatterns": ["^@types/"],
+      "automerge": true
+    },
+    {
+      "packageRules": [
+        {
+          "matchDepTypes": ["devDependencies"],
+          "matchPackagePatterns": ["lint", "prettier"],
+          "automerge": true
+        }
+      ]
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major"],
+      "reviewersFromCodeOwners": true,
+      "addLabels": ["major", "version-update"],
+      "commitMessagePrefix": "chore(renovate): major",
+      "groupName": "major"
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor"],
+      "addLabels": ["minor", "version-update"],
+      "commitMessagePrefix": "chore(renovate): minor",
+      "groupName": "minor"
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["patch"],
+      "addLabels": ["patch", "version-update"],
+      "commitMessagePrefix": "chore(renovate): patch",
+      "groupName": "patch",
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["pin", "digest"],
+      "addLabels": ["pin", "version-update"],
+      "commitMessagePrefix": "chore(renovate): pin",
+      "groupName": "pin",
+      "automerge": true
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "matchPackagePatterns": ["alpine"],
+      "separateMinorPatch": true
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "matchPackagePatterns": ["alpine"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge Github Actions updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": "github-actions",
+      "separateMultipleMajor": true,
+      "groupName": "github-actions"
+    },
+    {
+      "matchDepTypes": ["dependencies", "peerDependencies"],
+      "semanticCommitType": "fix"
+    }
+  ],
+  "platform": ["github"],
+  "onboarding": false,
+  "requireConfig": false
+}
