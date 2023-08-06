@@ -32,6 +32,7 @@
   "rangeStrategy": "bump",
   "postUpdateOptions": ["npmDedupe"],
   "transitiveRemediation": true,
+  "separateMajorMinor": true,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
@@ -44,7 +45,8 @@
   "ignorePaths": ["**/node_modules/**"],
   "prHourlyLimit": 4,
   "packageRules": [
-        {
+    {
+      "description": "Group major updates together",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["major"],
       "reviewersFromCodeOwners": true,
@@ -53,6 +55,7 @@
       "groupName": "major"
     },
     {
+      "description": "Group minor updates together",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor"],
       "addLabels": ["minor", "version-update"],
@@ -60,6 +63,7 @@
       "groupName": "minor"
     },
     {
+      "description": "Group patch updates together and automerge if tests pass",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["patch"],
       "addLabels": ["patch", "version-update"],
@@ -68,6 +72,7 @@
       "automerge": true
     },
     {
+      "description": "Group pin updates together and automerge if tests pass",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["pin", "digest"],
       "addLabels": ["pin", "version-update"],
@@ -76,18 +81,18 @@
       "automerge": true
     },
     {
+      "description": "Automerge any updates to types",
       "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor"],
       "matchPackagePatterns": ["^@types/"],
+      "groupName": "minor-types",
       "automerge": true
     },
     {
-      "packageRules": [
-        {
-          "matchDepTypes": ["devDependencies"],
-          "matchPackagePatterns": ["lint", "prettier"],
-          "automerge": true
-        }
-      ]
+      "description": "Automerge any updates to linting or prettier",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["lint", "prettier"],
+      "automerge": true
     },
     {
       "matchManagers": ["dockerfile"],
@@ -112,32 +117,32 @@
       "groupName": "github-actions"
     },
     {
-     "matchDepNames": [
-        "node"
-      ],
-      "matchPackagePatterns": [
-        "/node$"
-      ],
+      "matchDepNames": ["node"],
+      "matchPackagePatterns": ["/node$"],
       "matchUpdateTypes": ["major"],
       "groupName": "node major"
     },
     {
-     "matchDepNames": [
-        "typescript"
-      ],
-      "matchPackagePatterns": [
-        "^typescript$"
-      ],
+      "matchDepNames": ["pnpm"],
+      "matchPackagePatterns": ["/pnpm$"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "pnpm major"
+    },
+    {
+      "matchDepNames": ["typescript"],
+      "matchPackagePatterns": ["^typescript$"],
       "matchUpdateTypes": ["major"],
       "groupName": "Typescript major"
     },
-   {
+    {
+      "description": "Do not update postgres major versions",
       "matchPackagePatterns": ["postgres"],
+      "matchUpdateTypes": ["major"],
       "matchManagers": ["docker-compose"],
       "enabled": false
     }
   ],
-  "platform": ["github"],
+  "platform": "github",
   "onboarding": false,
-  "requireConfig": false
+  "requireConfig": "ignored"
 }
