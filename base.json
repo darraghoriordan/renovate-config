@@ -8,7 +8,7 @@
     ":ignoreModulesAndTests",
     ":label(renovate)",
     ":prConcurrentLimit10",
-    ":prNotPending",
+    ":prImmediately",
     ":rebaseStalePrs",
     ":semanticPrefixFixDepsChoreOthers",
     ":separatePatchReleases",
@@ -44,15 +44,6 @@
   "ignorePaths": ["**/node_modules/**"],
   "prHourlyLimit": 4,
   "packageRules": [
-    {
-      "description": "Group major updates together",
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["major"],
-      "reviewersFromCodeOwners": true,
-      "addLabels": ["major", "version-update"],
-      "commitMessagePrefix": "chore(renovate): major",
-      "groupName": "major"
-    },
     {
       "description": "Group minor updates together",
       "matchPackagePatterns": ["*"],
