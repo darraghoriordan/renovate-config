@@ -1,28 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     ":autodetectPinVersions",
     ":automergePatch",
-    ":dependencyDashboard",
-    ":ignoreModulesAndTests",
     ":label(renovate)",
     ":prConcurrentLimit10",
     ":prImmediately",
     ":rebaseStalePrs",
-    ":semanticPrefixFixDepsChoreOthers",
     ":separatePatchReleases",
     ":timezone(Australia/Melbourne)",
-    "group:monorepos",
-    "group:nodeJs",
-    "group:recommended",
     "helpers:disableTypesNodeMajor",
     "helpers:pinGitHubActionDigests",
     "npm:unpublishSafe",
-    "packages:eslint",
     "preview:dockerCompose",
     "preview:dockerVersions",
-    "workarounds:all"
+    "workarounds:typesNodeVersioning"
   ],
 
   "baseBranches": ["master"],
@@ -57,7 +50,7 @@
       "description": "Group minor updates together",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor"],
-      "addLabels": ["minor", "version-update"],
+      "addLabels": ["minor"],
       "commitMessagePrefix": "fix(renovate): minor",
       "groupName": "minor"
     },
@@ -65,7 +58,7 @@
       "description": "Group patch updates together and automerge if tests pass",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["patch"],
-      "addLabels": ["patch", "version-update"],
+      "addLabels": ["patch"],
       "commitMessagePrefix": "fix(renovate): patch",
       "groupName": "patch",
       "automerge": true
@@ -74,7 +67,7 @@
       "description": "Group pin updates together and automerge if tests pass",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["pin", "digest"],
-      "addLabels": ["pin", "version-update"],
+      "addLabels": ["pin"],
       "commitMessagePrefix": "fix(renovate): pin",
       "groupName": "pin",
       "automerge": true
@@ -83,6 +76,7 @@
       "description": "Automerge any updates to types",
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["minor"],
+      "addLabels": ["minor"],
       "matchPackagePatterns": ["^@types/"],
       "groupName": "minor-types",
       "commitMessagePrefix": "fix(renovate): @types",
@@ -120,24 +114,38 @@
       "matchDepNames": ["node"],
       "matchPackagePatterns": ["/node$"],
       "matchUpdateTypes": ["major"],
-      "groupName": "node major"
+      "addLabels": ["major"],
+      "groupName": "node major",
+      "enabled": false
     },
     {
       "matchDepNames": ["pnpm"],
       "matchPackagePatterns": ["/pnpm$"],
       "matchUpdateTypes": ["major"],
-      "groupName": "pnpm major"
+      "addLabels": ["major"],
+      "groupName": "pnpm major",
+      "enabled": false
     },
     {
       "matchDepNames": ["typescript"],
       "matchPackagePatterns": ["^typescript$"],
       "matchUpdateTypes": ["major"],
-      "groupName": "Typescript major"
+      "groupName": "Typescript major",
+      "enabled": false
     },
     {
       "description": "Do not update postgres major versions",
       "matchPackagePatterns": ["postgres"],
       "matchUpdateTypes": ["major"],
+      "addLabels": ["major"],
+      "matchManagers": ["docker-compose"],
+      "enabled": false
+    },
+    {
+      "description": "Do not update mongo major versions",
+      "matchPackagePatterns": ["mongo"],
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["major"],
       "matchManagers": ["docker-compose"],
       "enabled": false
     }
