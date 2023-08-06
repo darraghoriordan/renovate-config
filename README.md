@@ -30,6 +30,10 @@ https://github.com/darraghoriordan/use-miller/blob/main/.github/workflows/rennov
 
 ## What will it do?
 
+Renovate will create an issue in Github for you that will act as a dashboard for package updates. This issue will be updated daily with work to do. You can tell renovate what to do the next time it runs using the checkboxes in the dashboard.
+
+It will create PRs as described below but it is limited to 4 PRs at any one time to prevent overload.
+
 ### major.minor.PATCH
 It will automatically upgrade and merge patch verisons of docker images, npm packages, github action helpers. Anything it finds with a patch update basically!
 
