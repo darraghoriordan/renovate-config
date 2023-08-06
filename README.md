@@ -2,7 +2,7 @@
 
 Here is the config I use for NodeJs monorepo projects with postgres database. You can adjust for your own architecture and organisation by forking this repo and modifying. Change the `extends` property to your forked repository.
 
-## Why ????
+## Why use Renovate or update packages regularily?
 
 Javascript-land moves fast! If you keep on top of package and library updates then it's not a huge problem. If you leave updates for more than a few months it becomes a commplete nightmare for your development team. 
 
