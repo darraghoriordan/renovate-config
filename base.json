@@ -15,7 +15,8 @@
     "npm:unpublishSafe",
     "preview:dockerCompose",
     "preview:dockerVersions",
-    "workarounds:typesNodeVersioning"
+    "workarounds:typesNodeVersioning",
+    ":disablePeerDependencies"
   ],
 
   "baseBranches": ["master"],
