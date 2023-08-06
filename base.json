@@ -45,11 +45,20 @@
   "prHourlyLimit": 4,
   "packageRules": [
     {
+      "description": "Group major updates together",
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["major"],
+      "reviewersFromCodeOwners": true,
+      "addLabels": ["major", "version-update"],
+      "commitMessagePrefix": "fix(renovate): major",
+      "groupName": "major"
+    },
+    {
       "description": "Group minor updates together",
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor"],
       "addLabels": ["minor", "version-update"],
-      "commitMessagePrefix": "chore(renovate): minor",
+      "commitMessagePrefix": "fix(renovate): minor",
       "groupName": "minor"
     },
     {
@@ -57,7 +66,7 @@
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["patch"],
       "addLabels": ["patch", "version-update"],
-      "commitMessagePrefix": "chore(renovate): patch",
+      "commitMessagePrefix": "fix(renovate): patch",
       "groupName": "patch",
       "automerge": true
     },
@@ -66,7 +75,7 @@
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["pin", "digest"],
       "addLabels": ["pin", "version-update"],
-      "commitMessagePrefix": "chore(renovate): pin",
+      "commitMessagePrefix": "fix(renovate): pin",
       "groupName": "pin",
       "automerge": true
     },
@@ -76,6 +85,7 @@
       "matchUpdateTypes": ["minor"],
       "matchPackagePatterns": ["^@types/"],
       "groupName": "minor-types",
+      "commitMessagePrefix": "fix(renovate): @types",
       "automerge": true
     },
     {
