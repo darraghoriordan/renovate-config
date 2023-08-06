@@ -15,7 +15,6 @@
     ":timezone(Australia/Melbourne)",
     "group:monorepos",
     "group:nodeJs",
-    "group:typescript",
     "group:recommended",
     "helpers:disableTypesNodeMajor",
     "helpers:pinGitHubActionDigests",
