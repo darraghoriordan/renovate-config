@@ -22,7 +22,7 @@
   "rebaseWhen": "conflicted",
   "labels": ["dependencies"],
   "rangeStrategy": "bump",
-  "postUpdateOptions": ["npmDedupe"],
+  "postUpdateOptions": ["npmDedupe", "pnpmDedupe", "yarnDedupeFewer"],
   "transitiveRemediation": true,
   "separateMajorMinor": true,
   "lockFileMaintenance": {
