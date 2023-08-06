@@ -35,7 +35,7 @@
   },
   "automergeStrategy": "merge-commit",
   "ignorePaths": ["**/node_modules/**"],
-  "prHourlyLimit": 4,
+  "prHourlyLimit": 10,
   "packageRules": [
     {
       "description": "Group major updates together",
@@ -115,23 +115,20 @@
       "matchPackagePatterns": ["/node$"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["major"],
-      "groupName": "node major",
-      "enabled": false
+      "groupName": "node major"
     },
     {
       "matchDepNames": ["pnpm"],
       "matchPackagePatterns": ["/pnpm$"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["major"],
-      "groupName": "pnpm major",
-      "enabled": false
+      "groupName": "pnpm major"
     },
     {
       "matchDepNames": ["typescript"],
       "matchPackagePatterns": ["^typescript$"],
       "matchUpdateTypes": ["major"],
-      "groupName": "Typescript major",
-      "enabled": false
+      "groupName": "Typescript major"
     },
     {
       "description": "Do not update postgres major versions",
