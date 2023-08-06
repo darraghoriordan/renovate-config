@@ -14,6 +14,8 @@
     ":separatePatchReleases",
     ":timezone(Australia/Melbourne)",
     "group:monorepos",
+    "group:nodeJs",
+    "group:typescript",
     "group:recommended",
     "helpers:disableTypesNodeMajor",
     "helpers:pinGitHubActionDigests",
@@ -42,21 +44,7 @@
   "ignorePaths": ["**/node_modules/**"],
   "prHourlyLimit": 4,
   "packageRules": [
-    {
-      "matchManagers": ["npm"],
-      "matchPackagePatterns": ["^@types/"],
-      "automerge": true
-    },
-    {
-      "packageRules": [
         {
-          "matchDepTypes": ["devDependencies"],
-          "matchPackagePatterns": ["lint", "prettier"],
-          "automerge": true
-        }
-      ]
-    },
-    {
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["major"],
       "reviewersFromCodeOwners": true,
@@ -88,6 +76,20 @@
       "automerge": true
     },
     {
+      "matchManagers": ["npm"],
+      "matchPackagePatterns": ["^@types/"],
+      "automerge": true
+    },
+    {
+      "packageRules": [
+        {
+          "matchDepTypes": ["devDependencies"],
+          "matchPackagePatterns": ["lint", "prettier"],
+          "automerge": true
+        }
+      ]
+    },
+    {
       "matchManagers": ["dockerfile"],
       "matchPackagePatterns": ["alpine"],
       "separateMinorPatch": true
@@ -110,8 +112,29 @@
       "groupName": "github-actions"
     },
     {
-      "matchDepTypes": ["dependencies", "peerDependencies"],
-      "semanticCommitType": "fix"
+     "matchDepNames": [
+        "node"
+      ],
+      "matchPackagePatterns": [
+        "/node$"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "node major"
+    },
+    {
+     "matchDepNames": [
+        "typescript"
+      ],
+      "matchPackagePatterns": [
+        "^typescript$"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "Typescript major"
+    },
+   {
+      "matchPackagePatterns": ["postgres"],
+      "matchManagers": ["docker-compose"],
+      "enabled": false
     }
   ],
   "platform": ["github"],
