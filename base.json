@@ -126,6 +126,13 @@
       "groupName": "pnpm major"
     },
     {
+      "matchDepNames": ["npm"],
+      "matchPackagePatterns": ["/npm$"],
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["major"],
+      "groupName": "npm major"
+    },
+    {
       "matchDepNames": ["typescript"],
       "matchPackagePatterns": ["^typescript$"],
       "matchUpdateTypes": ["major"],
@@ -135,17 +142,21 @@
       "description": "Do not update postgres major versions",
       "matchPackagePatterns": ["postgres"],
       "matchUpdateTypes": ["major"],
-      "addLabels": ["major"],
-      "matchManagers": ["docker-compose"],
+      "addLabels": ["postgres"],
+      "matchManagers": ["docker-compose", "dockerfile"],
       "enabled": false
     },
     {
-      "description": "Do not update mongo major versions",
-      "matchPackagePatterns": ["mongo"],
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["major"],
-      "matchManagers": ["docker-compose"],
+      "description": "Do not update mongo",
+      "matchPackagePatterns": ["^mongo$"],
+      "addLabels": ["mongo"],
       "enabled": false
+    },
+    {
+      "description": "Do not update react major if it is 16",
+      "matchPackagePatterns": ["^react$", "^react-dom$"],
+      "matchCurrentVersion": "^16.0.0",
+      "allowedVersions": "^16.0.0"
     }
   ],
   "platform": "github",
