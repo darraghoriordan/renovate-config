@@ -44,7 +44,7 @@
       "matchUpdateTypes": ["major"],
       "reviewersFromCodeOwners": true,
       "addLabels": ["major", "version-update"],
-      "commitMessagePrefix": "fix(renovate): major",
+      "commitMessagePrefix": "fix(renovate):",
       "groupName": "major"
     },
     {
@@ -52,7 +52,7 @@
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["minor"],
       "addLabels": ["minor"],
-      "commitMessagePrefix": "fix(renovate): minor",
+      "commitMessagePrefix": "fix(renovate):",
       "groupName": "minor"
     },
     {
@@ -60,7 +60,7 @@
       "matchPackagePatterns": ["*"],
       "matchUpdateTypes": ["patch"],
       "addLabels": ["patch"],
-      "commitMessagePrefix": "fix(renovate): patch",
+      "commitMessagePrefix": "fix(renovate):",
       "groupName": "patch",
       "automerge": true
     },
@@ -145,6 +145,14 @@
       "addLabels": ["postgres"],
       "matchManagers": ["docker-compose", "dockerfile"],
       "enabled": false
+    },
+    {
+      "description": "Vitest does not follow semver, minor changes are breaking changes",
+      "matchDepNames": ["vitest"],
+      "matchPackagePatterns": ["^vitest$"],
+      "matchUpdateTypes": ["minor", "major"],
+      "addLabels": ["vitest"],
+      "groupName": "vitest"
     },
     {
       "description": "Do not update mongo",

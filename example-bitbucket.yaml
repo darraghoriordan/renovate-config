@@ -1,0 +1,17 @@
+image: atlassian/default-image:4
+
+pipelines:
+  custom:
+    renovate:
+      - step:
+          name: "Renovate"
+          script:
+            - npm install -g renovate
+            # add --bb-use-development-branch=true if you use develop, staging etc. Note that renovate will look at whatever your main
+            # branch is. Likely "production".
+            # note that you must export the var to the script in bitbucket
+            # note that you must add a read only github com token in bitbucket
+            # add LOG_LEVEL=debug to see more info
+            - export RENOVATE_BASE_BRANCHES=main GITHUB_COM_TOKEN=${RENOVATE_GITHUB_COM_TOKEN} RENOVATE_GIT_AUTHOR='Renovate Bot <bot@renovateapp.com>' RENOVATE_REPOSITORIES=${BITBUCKET_REPO_FULL_NAME} && renovate --username=<YOURUSERNAME> --password=${RENOVATE_PASSWORD} --platform=bitbucket
+          services:
+            - docker
