@@ -109,7 +109,7 @@
     {
       "matchManagers": "github-actions",
       "separateMultipleMajor": true,
-      "groupName": "github-actions"
+      "groupName": "github-actions",
     },
     {
       "matchDepNames": ["node"],
@@ -162,7 +162,7 @@
     },
     {
       "description": "Do not update react major if it is 16",
-      "matchPackagePatterns": ["^react$", "^react-dom$"],
+      "matchPackagePatterns": ["^react$", "^react-dom$","^@types/react$", "^@types/react-dom$"],
       "matchCurrentVersion": "^16.0.0",
       "allowedVersions": "^16.0.0"
     }
