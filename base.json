@@ -17,7 +17,7 @@
     "preview:dockerVersions",
     "workarounds:typesNodeVersioning",
     ":disablePeerDependencies",
-    "schedule:earlyMondays",
+    "schedule:daily",
     "schedule:automergeDaily"
   ],
 
