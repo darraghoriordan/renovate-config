@@ -5,7 +5,7 @@
     ":autodetectPinVersions",
     ":automergePatch",
     ":label(renovate)",
-    ":prConcurrentLimit10",
+    ":prConcurrentLimitNone",
     ":prHourlyLimitNone",
     ":prImmediately",
     ":rebaseStalePrs",
@@ -20,7 +20,6 @@
     "preview:dockerVersions",
     "workarounds:typesNodeVersioning",
     ":disablePeerDependencies",
-    "schedule:daily",
     "schedule:automergeDaily"
   ],
 
@@ -41,7 +40,6 @@
   },
   "automergeStrategy": "merge-commit",
   "ignorePaths": ["**/node_modules/**"],
-  "prHourlyLimit": 10,
   "packageRules": [
     {
       "description": "Group major updates together",
