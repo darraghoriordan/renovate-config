@@ -149,6 +149,13 @@
       "matchManagers": ["docker-compose", "dockerfile"],
       "enabled": false
     },
+      {
+      "description": "Do not update eslint major versions. v9 is breaking change",
+      "matchPackagePatterns": ["^eslint$"],
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["eslint"],
+      "enabled": false
+    },
     {
       "description": "Vitest does not follow semver, minor changes are breaking changes",
       "matchDepNames": ["vitest"],
