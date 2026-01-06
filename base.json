@@ -4,24 +4,27 @@
     "config:recommended",
     ":autodetectPinVersions",
     ":automergePatch",
-    ":label(renovate)",
     ":prImmediately",
     ":rebaseStalePrs",
     ":timezone(Australia/Melbourne)",
     "helpers:pinGitHubActionDigests",
     "npm:unpublishSafe",
     ":semanticCommits",
+    ":semanticCommitType(fix)",
+    ":semanticCommitScope(deps)",
     ":updateNotScheduled",
     "preview:dockerCompose",
     "preview:dockerVersions",
     "workarounds:typesNodeVersioning",
     ":disablePeerDependencies",
-    "schedule:automergeDaily"
+    "schedule:automergeDaily",
+    ":dependencyDashboard",
+    "group:recommended"
   ],
 
   "baseBranches": ["master"],
   "rebaseWhen": "conflicted",
-  "labels": ["dependencies"],
+  "addLabels": ["dependencies", "renovate"],
   "rangeStrategy": "bump",
   "postUpdateOptions": ["npmDedupe", "pnpmDedupe", "yarnDedupeFewer"],
   "transitiveRemediation": true,
@@ -31,148 +34,137 @@
     "automerge": true
   },
   "vulnerabilityAlerts": {
-    "commitMessagePrefix": "chore(renovate): Security update",
+    "semanticCommitType": "fix",
+    "semanticCommitScope": "security",
     "labels": ["security"]
   },
   "automergeStrategy": "merge-commit",
-  "ignorePaths": ["**/node_modules/**"],
   "packageRules": [
     {
       "description": "Group major updates together",
-      "matchPackagePatterns": ["*"],
+      "matchPackageNames": ["*"],
       "matchUpdateTypes": ["major"],
       "reviewersFromCodeOwners": true,
       "addLabels": ["major", "version-update"],
-      "commitMessagePrefix": "fix(renovate):",
       "groupName": "major"
     },
     {
       "description": "Group minor updates together",
-      "matchPackagePatterns": ["*"],
+      "matchPackageNames": ["*"],
       "matchUpdateTypes": ["minor"],
       "addLabels": ["minor"],
-      "commitMessagePrefix": "fix(renovate):",
       "groupName": "minor"
     },
     {
       "description": "Group patch updates together and automerge if tests pass",
-      "matchPackagePatterns": ["*"],
+      "matchPackageNames": ["*"],
       "matchUpdateTypes": ["patch"],
       "addLabels": ["patch"],
-      "commitMessagePrefix": "fix(renovate):",
-      "groupName": "patch",
-      "automerge": true
+      "groupName": "patch"
     },
     {
       "description": "Group pin updates together and automerge if tests pass",
-      "matchPackagePatterns": ["*"],
+      "matchPackageNames": ["*"],
       "matchUpdateTypes": ["pin", "digest"],
       "addLabels": ["pin"],
-      "commitMessagePrefix": "fix(renovate): pin",
-      "groupName": "pin",
-      "automerge": true
+      "groupName": "pin"
     },
     {
       "description": "Automerge any updates to types",
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["minor"],
       "addLabels": ["minor"],
-      "matchPackagePatterns": ["^@types/"],
+      "matchPackageNames": ["@types/**"],
       "groupName": "minor-types",
-      "commitMessagePrefix": "fix(renovate): @types",
       "automerge": true
     },
     {
       "description": "Automerge any updates to linting or prettier",
       "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns": ["lint", "prettier"],
+      "matchPackageNames": ["*lint*", "*prettier*"],
       "automerge": true
     },
     {
+      "description": "Separate alpine minor and patch",
       "matchManagers": ["dockerfile"],
-      "matchPackagePatterns": ["alpine"],
+      "matchPackageNames": ["*alpine*"],
       "separateMinorPatch": true
     },
     {
+      "description": "Automerge alpine patch updates",
       "matchManagers": ["dockerfile"],
-      "matchPackagePatterns": ["alpine"],
+      "matchPackageNames": ["*alpine*"],
       "matchUpdateTypes": ["patch"],
       "automerge": true
     },
     {
-      "description": "Automerge Github Actions updates",
+      "description": "Automerge Github Actions minor and patch updates",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     },
     {
-      "matchManagers": "github-actions",
-      "separateMultipleMajor": true,
-      "groupName": "github-actions"
+      "description": "Separate multiple major Github Actions updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "separateMultipleMajor": true
     },
     {
+      "description": "Group node major updates",
       "matchDepNames": ["node"],
-      "matchPackagePatterns": ["/node$"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["major"],
       "groupName": "node major"
     },
     {
+      "description": "Group pnpm major updates",
       "matchDepNames": ["pnpm"],
-      "matchPackagePatterns": ["/pnpm$"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["major"],
       "groupName": "pnpm major"
     },
     {
+      "description": "Group npm major updates",
       "matchDepNames": ["npm"],
-      "matchPackagePatterns": ["/npm$"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["major"],
       "groupName": "npm major"
     },
     {
+      "description": "Group Typescript major updates",
       "matchDepNames": ["typescript"],
-      "matchPackagePatterns": ["^typescript$"],
       "matchUpdateTypes": ["major"],
-      "groupName": "Typescript major"
+      "groupName": "typescript major"
     },
     {
       "description": "Do not update postgres major versions",
-      "matchPackagePatterns": ["postgres"],
+      "matchPackageNames": ["*postgres*"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["postgres"],
       "matchManagers": ["docker-compose", "dockerfile"],
       "enabled": false
     },
-      {
-      "description": "Do not update eslint major versions. v9 is breaking change",
-      "matchPackagePatterns": ["^eslint$"],
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["eslint"],
-      "enabled": false
-    },
+
     {
       "description": "Vitest does not follow semver, minor changes are breaking changes",
       "matchDepNames": ["vitest"],
-      "matchPackagePatterns": ["^vitest$"],
       "matchUpdateTypes": ["minor", "major"],
       "addLabels": ["vitest"],
       "groupName": "vitest"
     },
     {
       "description": "Do not update mongo",
-      "matchPackagePatterns": ["^mongo$"],
+      "matchPackageNames": ["mongo"],
       "addLabels": ["mongo"],
       "enabled": false
     },
     {
       "description": "Do not update react major if it is 16",
-      "matchPackagePatterns": [
-        "^react$",
-        "^react-dom$",
-        "^@types/react$",
-        "^@types/react-dom$"
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
       ],
       "matchCurrentVersion": "^16.0.0",
       "allowedVersions": "^16.0.0"
