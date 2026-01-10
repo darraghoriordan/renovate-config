@@ -62,3 +62,4 @@ It will create a PR for any major version updates it finds.
 
 - It will ignore postgres major versions in docker.
 - It will create separate branches for React, NodeJS and Typescript because upgrading major versions of these breaks things usually.
+- It will not update minor or patch versions of Node.js in the "engines" field of package.json (major versions will still create PRs).
