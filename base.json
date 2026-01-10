@@ -168,6 +168,14 @@
       ],
       "matchCurrentVersion": "^16.0.0",
       "allowedVersions": "^16.0.0"
+    },
+    {
+      "description": "Do not update node engines minor or patch versions",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["engines"],
+      "matchDepNames": ["node"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "enabled": false
     }
   ],
   "platform": "github",
