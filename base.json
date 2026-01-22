@@ -10,8 +10,6 @@
     "helpers:pinGitHubActionDigests",
     "npm:unpublishSafe",
     ":semanticCommits",
-    ":semanticCommitType(fix)",
-    ":semanticCommitScope(deps)",
     ":updateNotScheduled",
     "preview:dockerCompose",
     "preview:dockerVersions",
