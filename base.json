@@ -25,7 +25,6 @@
   "baseBranches": ["master"],
   "rebaseWhen": "conflicted",
   "addLabels": ["dependencies", "renovate"],
-  "rangeStrategy": "bump",
   "postUpdateOptions": ["npmDedupe", "pnpmDedupe", "yarnDedupeFewer"],
   "transitiveRemediation": true,
   "separateMajorMinor": true,
@@ -36,7 +35,8 @@
   "vulnerabilityAlerts": {
     "semanticCommitType": "fix",
     "semanticCommitScope": "security",
-    "labels": ["security"]
+    "labels": ["security"],
+    "rangeStrategy": "bump"
   },
   "automergeStrategy": "merge-commit",
   "packageRules": [
