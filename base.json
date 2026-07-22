@@ -32,7 +32,6 @@
     "automerge": true
   },
   "vulnerabilityAlerts": {
-    "semanticCommitType": "fix",
     "semanticCommitScope": "security",
     "labels": ["security"]
   },
